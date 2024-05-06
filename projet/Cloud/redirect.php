@@ -30,25 +30,43 @@ exit();
     echo $lastfileselect;
     if ($lastfileselect == '') {
         if (is_dir("./cloud/" . $fileselect)) {
-            echo 'est un fichier';
+            echo 'est un dossier';
             $_SESSION['fileselect'] = $fileselect;
             header("Location: ./index.php");
             exit();
         } else {
             $fileToDownload = "./cloud/" . $fileselect;
-            $downloadUrl = 'download.php?file=' . urlencode($fileToDownload);
-            header('Location: ' . $downloadUrl);
+            if (pathinfo($fileToDownload, PATHINFO_EXTENSION) == 'pdf') {
+                header('Content-Type: application/pdf');
+                header('Content-Disposition: inline; filename="' . basename($fileToDownload) . '"');
+                header('Content-Transfer-Encoding: binary');
+                header('Accept-Ranges: bytes');
+                @readfile($fileToDownload);
+                exit();
+            } else {
+                $downloadUrl = 'download.php?file=' . urlencode($fileToDownload);
+                header('Location: ' . $downloadUrl);
+            }
         }
     } else {
         if (is_dir("./cloud/" . $lastfileselect . "/" . $fileselect)) {
-            echo 'oui';
+            echo 'est un dossier';
             $_SESSION['fileselect'] = $lastfileselect . '/' . $fileselect;
             header("Location: ./index.php");
             exit();
         } else {
             $fileToDownload = "./cloud/" . $lastfileselect . "/" . $fileselect;
-            $downloadUrl = 'download.php?file=' . urlencode($fileToDownload);
-            header('Location: ' . $downloadUrl);
+            if (pathinfo($fileToDownload, PATHINFO_EXTENSION) == 'pdf') {
+                header('Content-Type: application/pdf');
+                header('Content-Disposition: inline; filename="' . basename($fileToDownload) . '"');
+                header('Content-Transfer-Encoding: binary');
+                header('Accept-Ranges: bytes');
+                @readfile($fileToDownload);
+                exit();
+            } else {
+                $downloadUrl = 'download.php?file=' . urlencode($fileToDownload);
+                header('Location: ' . $downloadUrl);
+            }
         }
     }
 }
