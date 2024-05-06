@@ -1,28 +1,49 @@
-<?php
-// Fonction pour créer un dossier
-function createFolder($folderName, $folderPath) {
-    // Vérifier si le nom du dossier est valide
-    if (empty($folderName) || preg_match('/[\/\\\\]/', $folderName)) {
-        echo "Le nom du dossier '$folderName' n'est pas valide.";
-        return;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="#" id="addfolder">zuuuu</a>
+</body>
+<script>
+const svgElement = document.getElementById("addfolder");
 
-    $folderPath = rtrim($folderPath, '/\\') . '/' . $folderName;
+// Ajouter un écouteur d'événement de clic
+svgElement.addEventListener("click", () => {
+        // Créer la div
+let divContainer = document.createElement("tr");
 
-    // Vérifier si le dossier existe déjà
-    if (!file_exists($folderPath)) {
-        // Créer le dossier
-        mkdir($folderPath, 0777, true);
-        echo "Le dossier '$folderPath' a été créé avec succès.";
-    } else {
-        echo "Le dossier '$folderPath' existe déjà.";
-    }
-}
+// Créer les boutons radio
+let radioFile = document.createElement("input");
+radioFile.type = "radio";
+radioFile.name = "file-or-folder";
+radioFile.value = "file";
 
-// Récupérer les paramètres de la requête
-$folderName = $_GET['folderName'];
-$folderPath = isset($_GET['folderPath']) ? $_GET['folderPath'] : './cloud/';
+let radioFolder = document.createElement("input");
+radioFolder.type = "radio";
+radioFolder.name = "file-or-folder";
+radioFolder.value = "folder";
 
-// Appeler la fonction createFolder
-createFolder($folderName, $folderPath);
-?>
+// Créer les champs d'entrée
+let inputFile = document.createElement("input");
+inputFile.type = "file"
+inputFile.id = "addfile";
+
+let inputFolder = document.createElement("input");
+inputFolder.id = "addfolder";
+
+// Ajouter les éléments à la div
+divContainer.appendChild(radioFile);
+divContainer.appendChild(inputFile);
+divContainer.appendChild(document.createElement("br"));
+divContainer.appendChild(radioFolder);
+divContainer.appendChild(inputFolder);
+
+// Insérer la div dans le DOM
+svgElement.parentNode.replaceChild(divContainer, svgElement);
+})
+</script>
+</html>

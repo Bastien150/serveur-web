@@ -141,20 +141,17 @@
 
                         <?php }
                         } ?>
-                        <tr>
-                            <th><svg id="addfolder" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V11.25H15C15.4142 11.25 15.75 11.5858 15.75 12C15.75 12.4142 15.4142 12.75 15 12.75H12.75L12.75 15C12.75 15.4142 12.4142 15.75 12 15.75C11.5858 15.75 11.25 15.4142 11.25 15V12.75H9C8.58579 12.75 8.25 12.4142 8.25 12C8.25 11.5858 8.58579 11.25 9 11.25H11.25L11.25 9C11.25 8.58579 11.5858 8.25 12 8.25Z" fill="CurrentColor" />
-                                </svg></th>
-                            <th>---</th>
-                            <th>---</th>
-                            <th>---</th>
-                        </tr>
                     </tbody>
 
                 </table>
             </div>
         </section>
-
+        <!-- Ajouter une fichier/dossier  -->
+        <section>
+            <svg id="addfolder" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V11.25H15C15.4142 11.25 15.75 11.5858 15.75 12C15.75 12.4142 15.4142 12.75 15 12.75H12.75L12.75 15C12.75 15.4142 12.4142 15.75 12 15.75C11.5858 15.75 11.25 15.4142 11.25 15V12.75H9C8.58579 12.75 8.25 12.4142 8.25 12C8.25 11.5858 8.58579 11.25 9 11.25H11.25L11.25 9C11.25 8.58579 11.5858 8.25 12 8.25Z" fill="CurrentColor" />
+            </svg>
+        </section>
     </main>
 
     <!-- delete confirm -->
@@ -230,171 +227,7 @@
 </body>
 <script src="../../js/theme.js"></script>
 <script src="../../js/modal.js"></script>
-<script>
-    // Sélectionne tous les boutons avec la classe "rename"
-    let renameButtons = document.querySelectorAll('.rename');
 
-    // Ajoute un écouteur d'événement "click" à chaque bouton
-    renameButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-
-            // Récupère l'ID du bouton cliqué
-            let id = this.id;
-            id = id.slice(7)
-
-            // Sélectionne la balise <a> correspondante
-            let link = document.getElementById(id);
-            let lastname = document.getElementById(id).textContent;
-
-            let vlink = link.value
-
-            // Crée un nouvel élément <input>
-            let input = document.createElement('input');
-            input.classList.add('renamed-input');
-
-            // Définit la valeur de l'input avec l'ID récupéré
-            input.value = id;
-
-            // Remplace la balise <a> par la balise <input>
-            link.parentNode.replaceChild(input, link);
-
-
-
-            // Ajoute un écouteur d'événement "keyup" à l'input
-            input.addEventListener('keyup', function(event) {
-                // Si la touche Entrée est enfoncée
-                if (event.key === 'Enter') {
-                    // Récupère la valeur de l'input
-                    let newId = this.value;
-                    link.textContent = newId;
-                    // Stocke la nouvelle valeur dans la session
-                    sessionStorage.setItem('rename', `vlink-${newId}`);
-
-                    // Remplace l'input par la balise <a>
-                    this.parentNode.replaceChild(link, this);
-
-                    let path = document.querySelector('input[name="filename"]');
-                    let folderPath;
-                    if (path.value === "") {
-                        folderPath = "./cloud/";
-                    } else {
-                        folderPath = "./cloud/" + path.value;
-                    }
-
-                    renamefinal(folderPath, lastname, newId)
-                }
-            })
-
-        });
-    });
-
-    // Fonction pour créer un dossier en utilisant la fonction PHP
-    async function renamefinal(folderPath, Name, NewName) {
-        try {
-            // Construire l'URL de la requête PHP
-            const url = `renamefile.php?folderPath=${encodeURIComponent(folderPath)}&Name=${encodeURIComponent(Name)}&NewName=${encodeURIComponent(NewName)}`;
-
-            // Envoyer la requête HTTP à la fonction PHP
-            const response = await fetch(url);
-
-            if (response.ok) {
-                // Récupérer le message de réponse
-                const message = await response.text();
-            }
-        } catch (error) {}
-        window.location.reload();
-    }
-</script>
-<script>
-    // Sélectionner l'élément SVG
-    const svgElement = document.getElementById('addfolder');
-
-    // Ajouter un écouteur d'événement de clic
-    svgElement.addEventListener('click', () => {
-        // Créer un nouvel élément <input>
-        const inputElement = document.createElement('input');
-
-        // Insérer l'élément <input> dans le DOM
-        svgElement.parentNode.replaceChild(inputElement, svgElement);
-
-        // Ajouter un écouteur d'événement de pression de touche "Entrée"
-        inputElement.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                // Créer un nouvel élément <a>
-                let path = document.querySelector('input[name="filename"]');
-                let filePath;
-
-                if (path.value === "") {
-                    filePath = "./cloud/";
-                } else {
-                    filePath = "./cloud/" + path.value;
-                }
-                createFolderInPHP(inputElement.value, filePath);
-                const linkElement = document.createElement('a');
-                linkElement.textContent = inputElement.value;
-
-                // Insérer l'élément <a> dans le DOM
-                inputElement.parentNode.replaceChild(linkElement, inputElement);
-            }
-        });
-    });
-
-
-    let deleteButtons = document.querySelectorAll('.deleute');
-
-    deleteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            let namee = button.id;
-            document.querySelector('input[name="fileNamedele"]').value = namee.slice(7);
-            document.getElementById('del-file-select').textContent = namee.slice(7);
-
-            let path = document.querySelector('input[name="filename"]');
-            let filePath;
-
-            if (path.value === "") {
-                filePath = "./cloud/";
-            } else {
-                filePath = "./cloud/" + path.value;
-            }
-            document.querySelector('input[name="filePathdele"]').value = filePath;
-        });
-    });
-
-    // Fonction pour créer un dossier en utilisant la fonction PHP
-    async function createFolderInPHP(folderName, folderPath) {
-        try {
-            // Construire l'URL de la requête PHP
-            const url = `test.php?folderName=${encodeURIComponent(folderName)}&folderPath=${encodeURIComponent(folderPath)}`;
-
-            // Envoyer la requête HTTP à la fonction PHP
-            const response = await fetch(url);
-
-            if (response.ok) {
-                // Récupérer le message de réponse
-                const message = await response.text();
-                console.log(message);
-            } else {
-                // Afficher une erreur si la requête a échoué
-                console.error(`Erreur lors de la création du dossier : ${await response.text()}`);
-            }
-        } catch (error) {
-            // Gérer les erreurs de la requête
-            console.error('Erreur lors de la création du dossier :', error);
-        }
-        window.location.reload();
-    }
-
-
-
-
-    /* 
-
-
-    a faire
-
-    */
-    // Fonction pour supprimer un fichier en utilisant la fonction PHP
-</script>
+<script src="./script.js"></script>
 
 </html>

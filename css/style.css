@@ -78,8 +78,35 @@ td, th {
   background-color: rgba(241, 2, 2, 0.5) !important;
 }
 .noborder{
-  padding: 5px 0;
-  margin-right: -5% !important;
+  padding: 5px 0 !important;
+  margin-right: -7% !important;
+}
+.inputaddfolder{
+  height: 2em !important;
+  max-width: 13em !important;
+  margin: 5px 75px !important;
+  display: block !important;
+
+}
+
+input[type="file"] {
+  transform: scale(0.9);
+}
+.divadd{
+  margin: 10px 0;
+}
+.divadd > label{
+  font-weight: 900;
+  font-size: 16px;
+  margin-right: 15px;
+  margin-left: 10px;
+}
+.divadd > input{
+  margin: 0;
+}
+div > .divadd{
+  border: #333 1px sold;
+  border-radius: 10px;
 }
 
 .containeur {
@@ -87,6 +114,12 @@ td, th {
   grid-template-columns: repeat(3, 0fr);
 }
 @media (max-width: 767px) {
+  .inputaddfolder{
+    max-width: 10em !important;
+    height: 2.5em !important;
+    margin: 10px 20px!important;
+
+  }
   th{
     max-width: 120px ;
   }
