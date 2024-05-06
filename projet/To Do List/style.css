@@ -1,0 +1,42 @@
+.navbar-toggler {
+  margin-top:7px;
+}
+.navbar-brand {
+    font-size: 50px;
+    font-weight: 600;
+    color: #2196f3 !important;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: 1em;
+}
+.navbar-brand > label {
+  font-size:14px;
+  line-height:1em;
+  vertical-align: middle;
+  color:#000;
+}
+.board {
+  margin-top:5px;
+}
+.heading {
+  padding:10px 10px;
+  color:#fff;
+}
+.draggable-card {
+  border-radius:0px;
+}
+.fixed-card {
+  color:#ccc;
+  border:1px dotted #ccc; 
+  border-radius:0px;
+}
+
+.edit-icon {
+  position:absolute;
+  top:5px;
+  right:5px
+}
+
+.cards-list {
+  min-height:300px;
+}

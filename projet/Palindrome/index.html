@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vérificateur de Palindrome</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="content">
+    <div id="conteneur">
+      <h1>Vérificateur de Palindrome</h1>
+      <div id="texteAvecInterrogation" onclick="afficherFenetreModale()">
+        <div class="lt">
+          <sup><span id="indicateur">?</span></sup>
+          <span>(Clique dessus)</span>
+        </div>
+      </div>
+    </div>
+    <p for="textesaisi">Entrez un mot ou une phrase :</p>
+    <input type="text" id="textesaisi" />
+    <div id="resultat">Veuiller entrer un texte</div>
+
+    <!-- Fenêtre modale -->
+    <div id="fenetreModale">
+      <div id="fermerModal" onclick="fermerFenetreModale()">✖</div>
+      <p>
+        <b>Un palindrome</b> est une séquence de caractères qui se lit de la même
+        manière de gauche à droite et de droite à gauche.
+      </p>
+    </div>
+  </div>
+  <script src="js/javascript.js"></script>
+</body>
+
+</html>

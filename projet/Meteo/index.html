@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Méteo</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="weather-side">
+        <div class="weather-gradient">
+          <div class="date-container">
+            <h2 id="date-day" class="date-dayname"></h2>
+            <span id="date" class="date-day"></span>
+            <div id="loc">
+              <img class="location-icon" src="" />
+              <span class="location"></span>
+            </div>
+          </div>
+          <div class="weather-container">
+            <img class="weather-icon" src="" />
+            <h1 class="weather-temp">0°C</h1>
+            <h3 class="weather-desc">Selectionnez un Lieu</h3>
+            <span>aa</span>
+          </div>
+        </div>
+      </div>
+      <div class="info-side">
+        <div class="today-info-container">
+          <div class="today-info">
+            <div class="feeling">
+              <span class="title">RESSENTI</span>
+              <span id="rvalue" class="value">0°C</span>
+              <div class="clear"></div>
+            </div>
+            <div class="precipitation">
+              <span class="title">PRÉCIPITATION</span>
+              <span id="pvalue" class="value">0 %</span>
+              <div class="clear"></div>
+            </div>
+            <div class="humidity">
+              <span class="title">HUMIDITÉ</span>
+              <span id="hvalue" class="value">0 %</span>
+              <div class="clear"></div>
+            </div>
+            <div class="wind">
+              <span class="title">VENT</span>
+              <span id="wvalue" class="value">0 km/h</span>
+              <div class="clear"></div>
+            </div>
+            <div class="visibility">
+              <span class="title">VISIBILITÉ</span>
+              <span id="vvalue" class="value">0 km</span>
+              <div class="clear"></div>
+            </div>
+            <div class="lat">
+              <span class="title">LATITUDE</span>
+              <span id="latvalue" class="value">0°</span>
+              <div class="clear"></div>
+            </div>
+            <div class="long">
+              <span class="title">LONGITUDE</span>
+              <span id="longvalue" class="value">0°</span>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <div class="week-container"></div>
+        <div class="location-container">
+          <input type="text" class="input-location" id="city" />
+          <button id="btn-loc" class="location-button">
+            <i data-feather="map-pin"></i>
+            <span>Changer de ville</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./js/script.js"></script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>IMC</title>
+</head>
+<body>
+  <form>
+    <h1>Calcul IMC</h1>
+    <fieldset>
+      <p>Saisir un poid, une taille et votre age :</p>
+      <div>
+        <div>
+          <label>Poid (en Kg) :</label>
+          <input type="number" id="nbpoid" class="numb" placeholder="ex : 80"/>
+        </div>
+        <div>
+          <label> Taille (En m) :</label>
+          <input type="number" id="nbtaille" class="numb" placeholder="ex : 1,80"/>
+        </div>
+        <div>
+          <label>Age : </label>
+          <input type="number" id="nbage" class="numb" placeholder="19">
+        </div>
+        <div>
+          <select id="genreSelect" >
+            <option value="">Selectionner votre sexe</option>
+            <option value="femme">Femme</option>
+            <option value="homme">Homme</option>
+          </select>
+        </div>
+        <input class="button" type="button" id="calcul" value="Calcul" onclick="verifieage()"/>
+      </div>
+    </fieldset>
+    <div class="reponse">
+      <label>IMC : </label>
+      <input type="number" data-role="input" id="resultat" readonly/>
+      <label>Commentaire : </label>
+      <input type="text" data-role="input" id="imc" readonly/>
+    </div>
+  </form>
+  <div id="imageContainer">
+    <!-- L'image sélectionnée sera affichée ici -->
+  </div>
+  <script src="js/javascript.js"></script>
+  </body>
+
+</html>
