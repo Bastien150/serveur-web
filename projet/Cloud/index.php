@@ -137,21 +137,28 @@
                                             </span>
                                         </td>
                                     </tr>
+
                                 </form>
 
                         <?php }
                         } ?>
+                        <tr>
+                            <td>
+                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" id="addfile" data-target="addfile-modal" onclick="toggleModal(event)">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.06935 5.00839C2 5.37595 2 5.81722 2 6.69975V13.75C2 17.5212 2 19.4069 3.17157 20.5784C4.34315 21.75 6.22876 21.75 10 21.75H14C17.7712 21.75 19.6569 21.75 20.8284 20.5784C22 19.4069 22 17.5212 22 13.75V11.5479C22 8.91554 22 7.59935 21.2305 6.74383C21.1598 6.66514 21.0849 6.59024 21.0062 6.51946C20.1506 5.75 18.8345 5.75 16.2021 5.75H15.8284C14.6747 5.75 14.0979 5.75 13.5604 5.59678C13.2651 5.5126 12.9804 5.39471 12.7121 5.24543C12.2237 4.97367 11.8158 4.56578 11 3.75L10.4497 3.19975C10.1763 2.92633 10.0396 2.78961 9.89594 2.67051C9.27652 2.15704 8.51665 1.84229 7.71557 1.76738C7.52976 1.75 7.33642 1.75 6.94975 1.75C6.06722 1.75 5.62595 1.75 5.25839 1.81935C3.64031 2.12464 2.37464 3.39031 2.06935 5.00839ZM12 11C12.4142 11 12.75 11.3358 12.75 11.75V13H14C14.4142 13 14.75 13.3358 14.75 13.75C14.75 14.1642 14.4142 14.5 14 14.5H12.75V15.75C12.75 16.1642 12.4142 16.5 12 16.5C11.5858 16.5 11.25 16.1642 11.25 15.75V14.5H10C9.58579 14.5 9.25 14.1642 9.25 13.75C9.25 13.3358 9.58579 13 10 13H11.25V11.75C11.25 11.3358 11.5858 11 12 11Z" fill="CurrentColor" />
+                                </svg>
+                            </td>
+                            <td>---</td>
+                            <td>---</td>
+                            <td>---</td>
+                        </tr>
                     </tbody>
 
                 </table>
             </div>
         </section>
         <!-- Ajouter une fichier/dossier  -->
-        <section>
-            <svg id="addfolder" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22ZM12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V11.25H15C15.4142 11.25 15.75 11.5858 15.75 12C15.75 12.4142 15.4142 12.75 15 12.75H12.75L12.75 15C12.75 15.4142 12.4142 15.75 12 15.75C11.5858 15.75 11.25 15.4142 11.25 15V12.75H9C8.58579 12.75 8.25 12.4142 8.25 12C8.25 11.5858 8.58579 11.25 9 11.25H11.25L11.25 9C11.25 8.58579 11.5858 8.25 12 8.25Z" fill="CurrentColor" />
-            </svg>
-        </section>
+
     </main>
 
     <!-- delete confirm -->
@@ -174,52 +181,45 @@
                     <button id="confirm-d" autofocus data-target="modal-example">
                         Oui
                     </button>
+                </form>
+
             </footer>
         </article>
     </dialog>
+
     <dialog id="addfile-modal">
         <article>
             <header>
                 <button aria-label="Close" rel="prev" data-target="addfile-modal" onclick="toggleModal(event)"></button>
-                <h3>ajouter un Dossier/fichier :</h3>
+                <h3>Ajouter un Dossier/fichier :</h3>
             </header>
-            <!-- 
-
-
-                        A FAIRE 
-                        FORM POUR AJOUTER UN / DES Fichier et les ranger dans un fichier existant si on le veux
-
-             -->
             <section id="accordions">
-                <details open>
-                    <summary>Ajouter un Dossier</summary>
-                    <label for="selectfolder">Emplacement du dossier</label>
-                    <select id="selectfolder" name="select">
-                        <option value="" selected>Select…</option>
-                        <option>…</option>
-                    </select>
+                <details class="upload" open name="upfolder">
+                    <summary>• Ajouter un Dossier</summary>
+                    <label for="upfolder">Nom du dossier</label>
                     <fieldset role="group">
-                        <input type="text" placeholder="Nom du dossier" />
-                        <input type="submit" value="Ajouter" />
+                        <input type="text" id="upfolder" placeholder="Nom du dossier" />
                     </fieldset>
                 </details>
-                <details>
-                    <summary>Ajouter un Fichier</summary>
-                    <input type="file" name="" id="">
-                    <label for="selectfolderfile">Emplacement du dossier</label>
-                    <select id="selectfolderfile" name="select">
-                        <option value="" selected>Select…</option>
-                        <option>…</option>
-                    </select>
-                </details>
+                <form action="./uploadfile.php" method="POST" enctype="multipart/form-data">
+                    <details class="upload" name="upfile">
+                        <summary>• Ajouter un Fichier</summary>
+                        <div class="grid">
+                            <input type="file" id="upfile" name="file">
+                            <input hidden type="text" name="path" value="<?php if (isset($_SESSION['fileselect'])) {
+                                                                    echo "./cloud/". $_SESSION['fileselect'];
+                                                                }else{
+                                                                    echo "./cloud/";
+                                                                } ?>">
+                        </div>
+                    </details>
 
             </section>
             <footer>
-                </form>
-                <button role="button" class="secondary" data-target="addfile-modal" onclick="toggleModal(event)">
-                    Annuler</button><button autofocus data-target="addfile-modal" onclick="toggleModal(event)">
-                    Oui
+                <button autofocus data-target="addfile-modal" id="send-add-file">
+                    Ajouter
                 </button>
+                </form>
             </footer>
         </article>
     </dialog>

@@ -4,7 +4,6 @@ $filename = $_GET['file'];
 
 // Définir le chemin complet du fichier
 $filepath =  $filename;
-echo $filename;
 
 // Vérifier que le fichier existe
 if (file_exists($filepath)) {
