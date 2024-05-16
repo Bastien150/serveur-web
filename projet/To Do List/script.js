@@ -1,221 +1,122 @@
-Vue.directive('sortable', {
-  inserted: function (el, binding) {
-    var sortable = new Sortable(el, binding.value || {});
-  } });
+var contador = 0,
+  select_opt = 0;
 
+function add_to_list() {
+  var action = document.querySelector("#action_select").value,
+    description = document.querySelector(".input_description").value,
+    title = document.querySelector(".input_title_desc").value,
+    date = document.getElementById("date_select").value;
 
+  switch (action) {
+    case "Activité":
+      select_opt = 0;
+      break;
+    case "Manger":
+      select_opt = 1;
+      break;
+    case "Travail":
+      select_opt = 2;
+      break;
+    case "Musique":
+      select_opt = 3;
+      break;
+    case "Course":
+      select_opt = 4;
+      break;
+    default:
+      select_opt = 0;
+  }
 
-Vue.component('nav-header', {
-  template: '#nav-template' });
+  var class_li = [
+    "list_shopping list_dsp_none",
+    "list_work list_dsp_none",
+    "list_sport list_dsp_none",
+    "list_music list_dsp_none",
+    "list_course list_dsp_none",
+  ];
 
+  var cont =
+    '<div class="col_md_1_list">    <p>' +
+    action +
+    '</p>    </div> <div class="col_md_2_list"> <h4>' +
+    title +
+    "</h4> <p>" +
+    description +
+    '</p> </div>    <div class="col_md_3_list"> <div class="cont_text_date"> <p>' +
+    date +
+    '</p>  </div>  <div class="cont_btns_options">    <ul>  <li><a href="#finish" onclick="finish_action(' +
+    select_opt +
+    "," +
+    contador +
+    ');" ><i class="material-icons">&#xE5CA;</i></a></li>   </ul>  </div>    </div>';
 
-Vue.component('card-new', {
-  template: '#card-new-template',
-  props: ['item'],
-  data() {
-    return {
-      form: {
-        text: '',
-        list: '' },
+  var li = document.createElement("li");
+  li.className = class_li[select_opt] + " li_num_" + contador;
+  li.innerHTML = cont;
+  document.querySelectorAll(".cont_princ_lists > ul")[0].appendChild(li);
 
-      isFormShowing: false };
+  setTimeout(function () {
+    document.querySelector(".li_num_" + contador).style.display = "block";
+  }, 100);
 
-  },
-  computed: {},
+  setTimeout(function () {
+    document.querySelector(".li_num_" + contador).className =
+      "list_dsp_true " + class_li[select_opt] + " li_num_" + contador;
+    contador++;
+  }, 200);
+}
 
-  methods: {
-    handleNew() {
-      this.form.text = this.item.text;
-      this.form.list = this.item.list;
-      this.isFormShowing = true;
-    },
-    cancelForm() {
-      this.clearForm();
-      this.$emit('form-cancelled');
-      this.isFormShowing = false;
-    },
-    clearForm() {
-      this.form.text = '';
-      this.form.list = '';
-    },
-    save() {
-      let min = 1000;
-      let max = 5000;
-      let id = Math.floor(Math.random() * (max - min + 1)) + min;
-      let item = { id: id, text: this.form.text, list: this.form.list };
-      this.$emit('item-created', item);
-      this.clearForm();
-      this.isFormShowing = false;
-    },
-    cancel() {
-      this.$emit('item-cancelled');
-      this.clearForm();
-      this.isFormShowing = false;
-    } } });
+function finish_action(num, num2) {
+  var class_li = [
+    "list_shopping list_dsp_true",
+    "list_work list_dsp_true",
+    "list_sport list_dsp_true",
+    "list_music list_dsp_true",
+    "list_course list_dsp_true",
+  ];
+  console.log(".li_num_" + num2);
+  document.querySelector(".li_num_" + num2).className =
+    class_li[num] + " list_finish_state";
+  setTimeout(function () {
+    del_finish();
+  }, 500);
+}
 
+function del_finish() {
+  var li = document.querySelectorAll(".list_finish_state");
+  for (var e = 0; e < li.length; e++) {
+    li[e].style.opacity = "0";
+    li[e].style.height = "0px";
+    li[e].style.margin = "0px";
+  }
 
+  setTimeout(function () {
+    var li = document.querySelectorAll(".list_finish_state");
+    for (var e = 0; e < li.length; e++) {
+      setTimeout(redirectToPhpPage(li[e].id), 1000);
 
-Vue.component('card-edit', {
-  template: '#card-edit-template',
-  props: ['item'],
-  data() {
-    return {
-      form: {
-        id: '',
-        text: '',
-        list: '' },
+      li[e].parentNode.removeChild(li[e]);
+    }
+  }, 500);
+}
 
-      isEditing: false };
+var t = 0;
+function add_new() {
+  if (t % 2 === 0) {
+    document.querySelector(".cont_crear_new").className =
+      "cont_crear_new cont_crear_new_active";
+    document.querySelector(".cont_add_titulo_cont").className =
+      "cont_add_titulo_cont cont_add_titulo_cont_active";
+    t++;
+  } else {
+    document.querySelector(".cont_crear_new").className = "cont_crear_new";
+    document.querySelector(".cont_add_titulo_cont").className =
+      "cont_add_titulo_cont";
+    t++;
+  }
+}
 
-  },
-  computed: {},
-
-  methods: {
-    handleEdit() {
-      this.form.id = this.item.id;
-      this.form.text = this.item.text;
-      this.form.list = this.item.list;
-      this.isEditing = true;
-    },
-    cancelForm() {
-      this.clearForm();
-      this.$emit('form-cancelled');
-    },
-    clearForm() {
-      this.form.id = '';
-      this.form.text = '';
-      this.form.list = '';
-    },
-    save() {
-      let item = { id: this.form.id, text: this.form.text, list: this.form.list };
-      this.$emit('item-edited', item);
-      this.clearForm();
-      this.isEditing = false;
-    },
-    cancel() {
-      this.$emit('item-cancelled');
-      this.clearForm();
-      this.isEditing = false;
-    } } });
-
-
-
-
-Vue.component('list', {
-
-  template: '#list-template',
-
-  props: ['list_name', 'list_description',
-  'lists', 'list_items',
-  'item_text', 'header_color'],
-
-  data() {
-    return {
-      editItem: null,
-      showForm: false };
-
-  },
-
-  computed: {
-
-    filteredListItems() {
-
-      return this.list_items.filter(t => {return t.list == this.list_name;});
-
-    },
-
-    defaultItem() {
-
-      return { id: 0, text: this.item_text, list: this.list_name };
-
-    },
-    sortableConfig() {
-
-      return {
-        onAdd: this.putItem,
-        draggable: '.draggable-card',
-        group: { name: this.list_name, put: this.list_put } };
-
-
-    } },
-
-
-  methods: {
-
-    list_put() {
-
-      return this.lists.filter(t => t !== this.list_name);
-
-    },
-
-    putItem(evt) {
-
-      let idx = _.findIndex(this.list_items, t => t.id == evt.item.id);
-      let item = this.list_items[idx];
-      item.list = evt.to.dataset.type;
-      this.list_items.splice(idx, 1, item);
-
-    },
-
-    showEditForm(item) {
-      this.editItem = item;
-      this.showForm = true;
-    },
-
-    showNewForm() {
-      this.editItem = null;
-      this.showForm = true;
-    },
-
-    closeForm() {
-      this.showForm = false;
-    },
-
-    itemCreated(item) {
-      this.list_items.push(item);
-      this.closeForm();
-    },
-
-    itemEdited(item) {
-      console.log(item);
-      let idx = _.findIndex(this.list_items, t => t.id == item.id);
-      let itm = this.list_items[idx];
-      itm.list = item.list;
-      itm.text = item.text;
-      this.list_items.splice(idx, 1, itm);
-      this.closeForm();
-    },
-
-    itemCancelled() {
-      this.closeForm();
-    } } });
-
-
-
-Vue.component('board', {
-
-  template: '#board-template',
-
-  data() {
-
-    return {
-
-      lists: [
-      { name: 'todo', description: 'Manger', header_color: 'bg-info' },
-      { name: 'doing', description: 'Film', header_color: 'bg-warning' },
-      { name: 'done', description: 'A Retenir', header_color: 'bg-success' }],
-
-
-      items: [
-      { id: 1, text: 'Build the feature #1', list: 'todo' },
-      { id: 4, text: 'Deploy the feature #1', list: 'todo' },
-      { id: 6, text: 'Put in some sample data in app', list: 'doing' },
-      { id: 7, text: 'Test the app before launching', list: 'doing' },
-      { id: 8, text: 'Set up app landing page ', list: 'done' },
-      { id: 9, text: 'Send out email invitations to the subscribers', list: 'done' }] };
-
-
-  } });
-
-
-new Vue({ el: '#app' });
+function redirectToPhpPage(idValue) {
+  const url = `todoedit.php?id=${idValue}`;
+  window.location.href = url;
+}

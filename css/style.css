@@ -7,7 +7,7 @@
 
 .application {
   display: flex;
-  padding: 5px;
+  padding: 0;
   align-items: center;
   justify-content: center;
 }
@@ -48,49 +48,50 @@
   width: 200px !important;
   padding: 10px 0px !important;
 }
-a{
+a {
   text-decoration: none !important;
 }
-.btn-add{
+.btn-add {
   float: right;
   margin-right: 10%;
   margin-top: -5%;
   scale: 80%;
 }
-td, th {
+td,
+th {
   padding: calc(0.7rem / 2) 0.4rem !important;
 }
-.btn-icon{
+.btn-icon {
   padding: 0px 2px 2px 2px !important;
   margin: 0 0px !important;
 }
 
-.icon-option svg{
+.icon-option svg {
   width: 27px;
   height: 27px;
 }
-details[open]>summary:not([role]):not(:focus){
+details[open] > summary:not([role]):not(:focus) {
   color: #ffffff !important;
 }
-.error{
+.error {
   font-weight: 600;
   margin: 10px 100px;
   border-radius: 10px;
   text-align: center;
   background-color: rgba(241, 2, 2, 0.5) !important;
 }
-.noborder{
+.noborder {
   padding: 5px 0 !important;
   margin-right: -7% !important;
 }
-.inputaddfolder{
+.inputaddfolder {
   height: 2em !important;
   max-width: 13em !important;
   margin: 5px 75px !important;
   display: block !important;
 }
 
-.btnaddfile{
+.btnaddfile {
   max-width: 270px;
   max-height: 40px;
   justify-content: center;
@@ -103,19 +104,19 @@ details[open]>summary:not([role]):not(:focus){
 input[type="file"] {
   transform: scale(0.9);
 }
-.divadd{
+.divadd {
   margin: 10px 0;
 }
-.divadd > label{
+.divadd > label {
   font-weight: 900;
   font-size: 16px;
   margin-right: 15px;
   margin-left: 10px;
 }
-.divadd > input{
+.divadd > input {
   margin: 0;
 }
-div > .divadd{
+div > .divadd {
   border: #333 1px sold;
   border-radius: 10px;
 }
@@ -125,16 +126,21 @@ div > .divadd{
   grid-template-columns: repeat(3, 0fr);
 }
 @media (max-width: 767px) {
-  .inputaddfolder{
+  .application {
+    margin-top: -4%;
+  }
+  .noborder {
+    min-width: 110px;
+  }
+  .inputaddfolder {
     max-width: 10em !important;
     height: 2.5em !important;
-    margin: 10px 20px!important;
-
+    margin: 10px 20px !important;
   }
-  th{
-    max-width: 120px ;
+  th {
+    max-width: 65px !important;
   }
-  .error{
+  .error {
     padding: 0 10px;
     margin: 0 10px;
   }

@@ -22,7 +22,7 @@
 
       $count = 0;
       foreach ($files as $file) {
-        if ($file !== '.' && $file !== '..' && $file !== 'header.php') {
+        if ($file !== '.' && $file !== '..' && $file !== 'header.php' && $file !== 'index.php') {
           if ($count % 6 == 0) {
             echo "<div class='containeur'>";
           }

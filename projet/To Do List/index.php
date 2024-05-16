@@ -1,126 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Kanban Board Demo in Vue.js</title>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'><link rel="stylesheet" href="./style.css">
+  <title>To do List</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300,600'>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+  <link rel="stylesheet" href="./style.css">
 
 </head>
-<body>
 <?php
-session_start();
-      $_SESSION['file'] = basename(__DIR__);
-      include_once('../header.php');
-  ?>
-<div class="container-fluid">
-  <div id="app">
-    <nav-header></nav-header>
-    <board></board>
-  </div>
-</div>
+// Informations de connexion à la base de données
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "srvweb";
+
+// Créer la connexion
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérifier la connexion
+if ($conn->connect_error) {
+  die("Connexion échouée: " . $conn->connect_error);
+}
+
+// Requête SQL pour sélectionner les données
+$sql = "SELECT * FROM todo";
+$result = $conn->query($sql);
 
 
 
-<script id="board-template" type="text/template">
-  <div class="row board">
-    <list v-for="(listItem, index) in lists" :key="index"
-            :list_name = 'listItem.name'
-            :list_description = 'listItem.description'
-            :header_color="listItem.header_color"
-            item_text = 'default item'
-            :lists = 'lists'
-            :list_items.sync = "items">
-      </list>
-  </div>
-</script>
+// Fermer la connexion
+$conn->close();
+?>
 
-<script id="list-template" type="text/template">
-  <div class="col">
-    <div class="heading" :class="this.header_color"> 
-      <h4 class="text-center">{{ list_description }}</h4>
-    </div>
-    <div class="cards cards-list" 
-            :data-type="this.list_name" 
-            v-sortable="this.sortableConfig">
-            
-      <card-edit v-for="item in filteredListItems"
-            class="draggable-card"  
-            :item="item" 
-            :key="item.id" 
-            :data-type="item.list"
-            @item-edited="itemEdited"
-            @item-cancelled="itemCancelled">
-      </card-edit>
-      
-      <card-new  
-            class="fixed-card"
-            :item="defaultItem"
-            v-show="showNewForm"
-            @item-created="itemCreated"
-            @item-cancelled="itemCancelled">
-      </card-new>
-    </div>
-  </div>
-</script>
+<body>
+  <div class="cont_principal">
+    <div class="cont_centrar">
 
-
-<script id="card-new-template" type="text/template">
-  <div class="card">
-    <div class="card-block">
-      <!-- New Item Link Markup Start -->
-      <div class="text-center" v-show = "!isFormShowing">   
-        <a href="#" @click.prevent = "handleNew">Ajouter</a>
-      </div>
-      <!-- Item Display Markup End -->
-      <!-- Form Markup Start -->
-      <div v-show = "isFormShowing" class="form">
-        <div class="form-group">
-          <textarea rows="3" class="form-control" v-model="form.text"></textarea>
+      <div class="cont_todo_list_top">
+        <div class="cont_titulo_cont">
+          <h3>PENSE BETE</h3>
         </div>
-        <div class="form-group text-center">
-          <button class="btn btn-outline-primary btn-sm" @click.prevent="save">Sauvegarder</button>
-          <button class="btn btn-outline-secondary btn-sm" @click.prevent="cancel">Annuler</button>
+        <div class="cont_add_titulo_cont"><a href="#e" onclick="add_new()"><i class="material-icons">&#xE145;</i></a>
         </div>
+
       </div>
-      <!-- Form Markup End -->
+      <div class="cont_crear_new">
+        <form action="./todoedit.php" method="post">
+          <table class="table">
+            <tr>
+              <th>Genre</th>
+              <th>Titre</th>
+              <th>Date</th>
+            </tr>
+            <tr>
+              <td>
+                <select name="genre" id="action_select">
+                  <option value="Activité">Activité</option>
+                  <option value="Manger">Manger</option>
+                  <option value="Travail">Travail</option>
+                  <option value="Musique">Musique</option>
+                  <option value="Course">Course</option>
+                </select>
+              </td>
+              <td>
+                <input type="text" name="titre" class="input_title_desc" />
+              </td>
+              <td>
+                <input type="date" name="date" id="date_select">
+              </td>
+            </tr>
+            <tr>
+              <th class="titl_description">Description</th>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <input type="text" name="description" class="input_description" required />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <button type="submit" class="btn_add_fin" name="addtodo">Ajouter</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+
+      </div>
+
+
+      <div class="cont_princ_lists">
+        <ul>
+          <?php
+          $i=0;
+          if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+              $i++;
+          ?>
+              <li class="list_shopping li_num_0_<?php echo $i; ?>" id="<?php echo $row["id"];?>">
+                <div class="col_md_1_list">
+                  <p><?php echo $row["genre"]; ?></p>
+                </div>
+                <div class="col_md_2_list">
+                  <h4><?php echo $row["titre"]; ?></h4>
+                  <p><?php echo $row["descr"]; ?></p>
+                </div>
+                <div class="col_md_3_list">
+                  <div class="cont_text_date">
+                    <p><?php echo $row["datefin"]; ?></p>
+                  </div>
+                  <div class="cont_btns_options">
+                    <ul>
+
+                      <li><a href="#" onclick="finish_action('0','0_<?php echo $i; ?>');"><i class="material-icons">&#xE5CA;</i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+          <?php
+            }
+          }
+          ?>
+        </ul>
+      </div>
     </div>
   </div>
-</script>
-
-<script id="card-edit-template" type="text/template">
-  <div class="card" :id="item.id">
-    <div class="card-block">
-      <!-- Item Display Markup Start -->
-      <div v-show = "!isEditing">   
-        {{item.text}}
-        <i  class="fa fa-pencil edit-icon" 
-            aria-hidden="true"
-            @click.prevent = "handleEdit">
-        </i>
-      </div>
-      <!-- Item Display Markup End -->
-      <!-- Form Markup Start -->
-      <div v-show = "isEditing" class="form">
-        <div class="form-group">
-          <textarea rows="3" class="form-control" v-model="form.text"></textarea>
-        </div>
-        <div class="form-group text-center">
-          <button class="btn btn-outline-primary btn-sm" @click.prevent="save">Sauvegarder</button>
-          <button class="btn btn-outline-secondary btn-sm" @click.prevent="cancel">Annuler</button>
-        </div>
-      </div>
-      <!-- Form Markup End -->
-    </div>
-  </div>
-</script>
-<!-- partial -->
-  <script src='https://code.jquery.com/jquery-3.0.0.slim.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
-<script src='https://cdn.jsdelivr.net/sortable/latest/Sortable.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script><script  src="./script.js"></script>
-
+  <script src="./script.js"></script>
 </body>
+
 </html>
