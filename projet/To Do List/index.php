@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./style.css">
 
 </head>
+
 <?php
 // Informations de connexion à la base de données
 $servername = "localhost";
@@ -33,7 +34,15 @@ $result = $conn->query($sql);
 // Fermer la connexion
 $conn->close();
 ?>
-
+<header>
+<div class="icon">
+      <a href="../../index.php">
+        <svg width="55" height="55" fill="none" stroke-width="2.5" stroke="#2A486B" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 9.5 12 4l9 5.5"></path>
+          <path d="M19 13v6.4a.6.6 0 0 1-.6.6H5.6a.6.6 0 0 1-.6-.6V13"></path>
+        </svg>
+      </a>
+</header>
 <body>
   <div class="cont_principal">
     <div class="cont_centrar">
