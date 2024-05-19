@@ -18,7 +18,32 @@ if (file_exists('../../model/model.php')) {
             echo $user->nf;
           } ?></title>
 </head>
+<style>
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+  }
+
+  /* Couleur de la scrollbar et du rail */
+  * {
+    scrollbar-color: #888;
+  }
+  .imgbattery{
+    width: 46px !important ;
+    stroke: currentColor;
+  }
+  abbr{
+    border-bottom: none !important;
+  }
+</style>
 
 <header class="container">
   <div class="icon">
@@ -30,7 +55,7 @@ if (file_exists('../../model/model.php')) {
         </svg>
       </a>
 
-    <?php } ?>
+    <?php }  ?>
 
   </div>
   <hgroup>

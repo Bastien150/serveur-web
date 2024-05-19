@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="UTF-8">
@@ -20,29 +20,21 @@ $dbname = "srvweb";
 // Créer la connexion
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Vérifier la connexion
-if ($conn->connect_error) {
-  die("Connexion échouée: " . $conn->connect_error);
-}
-
 // Requête SQL pour sélectionner les données
 $sql = "SELECT * FROM todo";
 $result = $conn->query($sql);
 
-
-
-// Fermer la connexion
-$conn->close();
 ?>
 <header>
-<div class="icon">
-      <a href="../../index.php">
-        <svg width="55" height="55" fill="none" stroke-width="2.5" stroke="#2A486B" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 9.5 12 4l9 5.5"></path>
-          <path d="M19 13v6.4a.6.6 0 0 1-.6.6H5.6a.6.6 0 0 1-.6-.6V13"></path>
-        </svg>
-      </a>
+  <div class="icon">
+    <a href="../../index.php">
+      <svg width="55" height="55" fill="none" stroke-width="2.5" stroke="#2A486B" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9.5 12 4l9 5.5"></path>
+        <path d="M19 13v6.4a.6.6 0 0 1-.6.6H5.6a.6.6 0 0 1-.6-.6V13"></path>
+      </svg>
+    </a>
 </header>
+
 <body>
   <div class="cont_principal">
     <div class="cont_centrar">
@@ -77,7 +69,7 @@ $conn->close();
                 <input type="text" name="titre" class="input_title_desc" />
               </td>
               <td>
-                <input type="date" name="date" id="date_select">
+                <input type="date" name="date" id="dateInput">
               </td>
             </tr>
             <tr>
@@ -95,19 +87,36 @@ $conn->close();
             </tr>
           </table>
         </form>
-
       </div>
 
+      <div>
+        <table class="table">
+          <tr>
+            <td>
+              <form action="" method="post">
+                <select name="types" class="select-opt" id="">
+                  <option value="all">Tous</option>
+                  <option value="Activité">Activité</option>
+                  <option value="Manger">Manger</option>
+                  <option value="Travail">Travail</option>
+                  <option value="Musique">Musique</option>
+                  <option value="Course">Course</option>
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>
+      </div>
 
       <div class="cont_princ_lists">
         <ul>
           <?php
-          $i=0;
+          $i = 0;
           if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
               $i++;
           ?>
-              <li class="list_shopping li_num_0_<?php echo $i; ?>" id="<?php echo $row["id"];?>">
+              <li class="list_shopping li_num_0_<?php echo $i; ?>" id="<?php echo $row["id"]; ?>">
                 <div class="col_md_1_list">
                   <p><?php echo $row["genre"]; ?></p>
                 </div>
@@ -136,6 +145,46 @@ $conn->close();
     </div>
   </div>
   <script src="./script.js"></script>
+  <script>
+// Récupérer toutes les cartes
+let cards = document.querySelectorAll('.list_shopping');
+
+// Récupérer le menu déroulant
+let selectMenu = document.querySelector('.select-opt');
+
+// Fonction pour filtrer les cartes
+function filterCards() {
+  let selectedOption = selectMenu.value;
+
+  // Boucler sur toutes les cartes
+  cards.forEach(card => {
+    let cardType = card.querySelector('.col_md_1_list p').textContent.trim();
+
+    // Vérifier si la carte correspond à l'option sélectionnée
+    if (selectedOption === 'all' || cardType === selectedOption) {
+      card.style.display = 'flex'; // Afficher la carte
+    } else {
+      card.style.display = 'none'; // Masquer la carte
+    }
+  });
+}
+
+// Ajouter un écouteur d'événement sur le menu déroulant
+selectMenu.addEventListener('change', filterCards);
+  </script>
+
+  <script>
+    setDefaultDate();
+
+    function setDefaultDate() {
+      let today = new Date();
+      let year = today.getFullYear();
+      let month = String(today.getMonth() + 1).padStart(2, '0');
+      let day = String(today.getDate()).padStart(2, '0');
+      let defaultDate = `${year}-${month}-${day}`;
+      document.getElementById("dateInput").value = defaultDate;
+    }
+  </script>
 </body>
 
 </html>

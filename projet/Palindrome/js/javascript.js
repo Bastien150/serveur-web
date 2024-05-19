@@ -50,11 +50,3 @@ function chainetransformer(chaine) {
   }
 
 
-
-/*fenetre explicative */
-  function afficherFenetreModale() {
-    document.getElementById("fenetreModale").style.display = "block";
-  }
-  function fermerFenetreModale() {
-    document.getElementById("fenetreModale").style.display = "none";
-  }

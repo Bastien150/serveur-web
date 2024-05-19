@@ -6,12 +6,17 @@
 }
 
 .application {
+  margin-top: -40px;
   display: flex;
   padding: 0;
   align-items: center;
   justify-content: center;
 }
-
+#progress{
+  scale: 60%;
+  margin: -40px 0;
+  width: 30%;
+}
 .square > a > img {
   background-size: cover;
   transform: translateX(10%) translateY(10%);
@@ -131,6 +136,11 @@ div > .divadd {
   }
   .noborder {
     min-width: 110px;
+  }
+  #progress{
+    scale: 60%;
+    margin: 0px 0;
+    width: 100%;
   }
   .inputaddfolder {
     max-width: 10em !important;

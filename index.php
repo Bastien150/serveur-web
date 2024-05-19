@@ -14,6 +14,7 @@
   include_once('./projet/header.php');
   unset($_SESSION['file']);
   ?>
+
   <main class="container">
     <div class="application">
       <?php
@@ -42,8 +43,15 @@
     </div>
     <div class="pagination">
     </div>
+    <section id="progress">
+      <abbr style="font-size: 26px; font-weight: 600;" data-tooltip="<?php echo "Espiace libre : " .freesize(); ?>">Espace utilisé :</abbr>
+      <progress id="progress-1" value="<?php echo percentsize(); ?>" max="100"></progress>
+      <p></p>
+    </section>
   </main>
+
 </body>
+
 <script src="./js/theme.js"></script>
 <script src="./js/script.js"></script>
 
